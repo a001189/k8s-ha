@@ -1,0 +1,28 @@
+apiVersion: kubeadm.k8s.io/v1alpha2
+kind: MasterConfiguration
+kubeProxy:
+  config:
+    mode: ipvs
+#kind: InitConfiguration
+kubernetesVersion: v1.12.1
+apiServerCertSANs:
+- "192.168.0.190"
+controlPlaneEndpoint: "192.168.0.190:6443"
+etcd:
+  local:
+    extraArgs:
+      listen-client-urls: "https://127.0.0.1:2379,https://192.168.0.192:2379"
+      advertise-client-urls: "https://192.168.0.192:2379"
+      listen-peer-urls: "https://192.168.0.192:2380"
+      initial-advertise-peer-urls: "https://192.168.0.192:2380"
+      initial-cluster: "node1=https://192.168.0.191:2380,node2=https://192.168.0.192:2380"
+      initial-cluster-state: existing
+    serverCertSANs:
+      - node2
+      - 192.168.0.192
+    peerCertSANs:
+      - node2
+      - 192.168.0.192
+networking:
+    # This CIDR is a calico default. Substitute or remove for your CNI provider.
+    podSubnet: "10.244.0.0/16"
