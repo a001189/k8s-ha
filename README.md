@@ -14,3 +14,5 @@ for i in auth-delegator.yaml auth-reader.yaml metrics-apiservice.yaml metrics-se
 参考
 [metrics-server 官方地址](https://github.com/kubernetes-incubator/metrics-server/)
 
+## ca-generate.sh
+利用ca根证书签署证书，供其他pod使用
